@@ -1,0 +1,1 @@
+The full bundled catalog can be generated from the LibraryThing export. Supabase is the source of truth for the hosted catalog. Run supabase_seed.sql after applying the schema.
