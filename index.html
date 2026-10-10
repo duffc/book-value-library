@@ -10,22 +10,21 @@
 <link rel="preconnect" href="https://www.googleapis.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="assets/styles.css?v=20261010-2">
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("bvl-theme")==="dark"?"dark":"light"}catch(e){document.documentElement.dataset.theme="light"}</script>
+<link rel="stylesheet" href="assets/styles.css?v=20261010-3">
 </head>
 <body>
 <header class="top">
   <div class="top-nav">
     <a class="brand" href="./" aria-label="Book Value Library home"><span class="brand-mark">B·L</span><span>BOOK VALUE <b>LIBRARY</b></span></a>
-    <button id="adminToggle" class="outline">Admin workspace <span aria-hidden="true">↗</span></button>
+    <div class="nav-actions"><button id="themeToggle" class="theme-toggle outline" type="button" aria-pressed="false">◐ Dark mode</button><button id="adminToggle" class="outline" type="button">Admin workspace <span aria-hidden="true">↗</span></button></div>
   </div>
-  <div class="hero-layout">
-    <div class="hero-copy">
-      <p class="eyebrow">YOUR PERSONAL BOOK MARKET</p>
-      <h1>Every book has a story.<br><em>Know what it’s worth.</em></h1>
-      <p class="sub">One thoughtful home for your collection. Explore your books by cover, find the right edition, and follow the value of the stories on your shelves.</p>
-      <div class="hero-foot"><span class="live-dot"></span><span>A living catalogue of your collection</span><span class="hero-separator">/</span><span>Cover art · edition details · market history</span></div>
+  <div class="hero-artwork-shell">
+    <img class="collection-artwork" src="assets/collection-art.svg?v=20261010-1" alt="Original literary panorama inspired by books in the collection: a watchful tower, planets and galaxies, a mountain castle, a loyal dog, and a futuristic city." fetchpriority="high">
+    <div class="art-caption">
+      <div><p class="eyebrow">A PERSONAL COLLECTION</p><p class="art-titles">1984 <span>·</span> Cosmos <span>·</span> The Hobbit <span>·</span> A Game of Thrones <span>·</span> Neuromancer</p></div>
+      <span class="art-index">LIBRARY / MMXXVI</span>
     </div>
-    <div class="hero-art" aria-hidden="true"><div class="hero-orbit"></div><div class="hero-book hero-book-one"><span>READ<br>KEEP<br>DISCOVER</span><small>VOL. 01</small></div><div class="hero-book hero-book-two"><span>THE ART<br>OF A<br>LIBRARY</span><small>COLLECTOR’S EDITION</small></div><div class="hero-book hero-book-three"><span>STORIES<br>THAT<br>STAY</span><small>EST. MMXXVI</small></div></div>
   </div>
 </header>
 <main>
@@ -56,6 +55,7 @@
   <section id="bulkImportPanel" class="admin bulkImport hidden"><div class="adminHead"><div><p class="eyebrow">DATA WORKSPACE</p><h2>Bulk CSV research import</h2></div></div><p>Upload a CSV, preview book matches, then append new research observations. Existing books and history are preserved.</p><div class="importActions"><label>Research CSV<input id="bulkImportFile" type="file" accept=".csv,text/csv"></label><button type="button" class="outline" id="bulkImportTemplate">Download CSV template</button><button type="button" class="outline" id="bulkImportReset">Clear preview</button></div><p id="bulkImportMessage" role="status">Choose a CSV file to begin.</p><div id="bulkImportSummary" class="importSummary"></div><div id="bulkImportPreview" class="hidden"></div><button type="button" id="bulkImportApply" disabled>Import matched rows</button></section>
   <footer><span>Blank means unknown, not zero. Prices are only as current as the last verified observation.</span><span>Made for the love of books — and the joy of collecting.</span></footer>
 </main>
+<script src="assets/theme.js?v=20261010-1"></script>
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/app.js?v=20261010-8"></script>
