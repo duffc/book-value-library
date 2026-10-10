@@ -125,7 +125,7 @@
     }
     const detail={isbn:d.isbn||usedIsbn,title:d.title||book.title,source:"PangoBooks public API",source_url:pricingUrl,checked_at:new Date().toISOString(),market:{min_price_usd:market.min_price_usd,max_price_usd:market.max_price_usd,avg_price_usd:market.avg_price_usd,median_price_usd:market.median_price_usd,sales_count:count,retail_price_usd:market.retail_price_usd},recent_sale_samples:salesAdded,valuation_updated:valuationUpdated,confidence};
     const auditError=await addEvent(ctx,book,"pango_isbn_pricing","complete",detail);
-    return {status:"complete",text:book.title+" — median "+money(median)+" · "+count+" historical sales · "+salesAdded+" new sale records"+(valuationUpdated?" · recent-sample valuation updated":recentSamples.length>=3?" · recent sample retained":" · only "+recentSamples.length+" dated recent sales; no valuation published")+(auditError?" · audit note failed":""),kind:"data"};
+    return {status:"complete",text:book.title+" — "+recentSamples.length+" dated sales in 365 days · recent median "+money(recentMedian)+" · "+count+" lifetime sales reported · "+salesAdded+" new sale records"+(valuationUpdated?" · recent-sample valuation updated":recentSamples.length>=3?" · recent sample retained":" · insufficient recent sample; no valuation published")+(auditError?" · audit note failed":""),kind:"data"};
   }
   async function researchListings(ctx,book,state){
     const isbns=allIsbns(book);if(!isbns.length){await addEvent(ctx,book,"pango_active_offers","complete",{reason:"No ISBN stored on catalog record",checked_at:new Date().toISOString()});return {status:"no_isbn",text:book.title+" — skipped (no ISBN)",kind:"empty"}}
