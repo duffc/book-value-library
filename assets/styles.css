@@ -72,3 +72,5 @@
 /* Valuation coverage caveat */
 .valuation-caveat{grid-column:1/-1;margin:0 0 2px;padding:10px 13px;border:1px solid #c9d7be;border-radius:10px;background:#edf2e7;color:#52664f;font-size:.75rem;line-height:1.45}
 :root[data-theme="dark"] .valuation-caveat{background:#1a2a20;border-color:#304638;color:#b9cdbb}
+
+.cross-market-validation{display:grid;gap:3px;margin-top:8px;padding:9px 10px;border:1px solid #e2c78c;background:#fbf6e8;border-radius:9px;color:#725a2d;font-size:.68rem;line-height:1.4}.cross-market-validation strong{font-size:.7rem}.cross-market-validation em{font-style:normal;font-weight:700;color:#9b4e2e}.cross-market-validation span{color:#7a715f}:root[data-theme="dark"] .cross-market-validation{background:#2c281b;border-color:#66552e;color:#e6d4a5}:root[data-theme="dark"] .cross-market-validation span{color:#c5b994}
