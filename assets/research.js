@@ -192,6 +192,9 @@
   $("runPangoListings").addEventListener("click",()=>run("listings"));
   $("retryPangoPricingMisses").addEventListener("click",()=>recheckMissing("pricing"));
   $("retryPangoListingsMisses").addEventListener("click",()=>recheckMissing("listings"));
+  function resetFullScan(kind){if(running)return;const label=kind==="pricing"?"sold-price":"active-offer";if(!window.confirm("Reset browser progress and rescan every catalog book for "+label+" data? Existing saved prices and valuation history will not be deleted."))return;const state={processed:{},log:[],started_at:null,updated_at:null};writeState(kind,state);renderProgress(kind);setGlobalNote("Full "+label+" rescan queued from the beginning. Click the matching Run / resume button to start; existing records are preserved.");}
+  $("fullPangoPricingScan").addEventListener("click",()=>resetFullScan("pricing"));
+  $("fullPangoListingsScan").addEventListener("click",()=>resetFullScan("listings"));
   $("pausePangoResearch").addEventListener("click",()=>{if(!running)return;pauseRequested=true;setGlobalNote("Pause requested. The current lookup will finish, then progress is saved.");renderAll("Pause requested…")});
   window.addEventListener("beforeunload",e=>{if(running){e.preventDefault();e.returnValue=""}});
   function init(){renderProgress("pricing");renderProgress("listings");}
