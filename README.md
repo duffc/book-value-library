@@ -60,3 +60,7 @@ The scan progress keys were versioned so the revised pricing pass starts with a 
 - Existing PangoBooks estimates with fewer than 10 reported historical sales are excluded from dashboard market-value totals even though their history is preserved.
 - The catalog can show recorded eBay sold-comparable evidence separately. An eBay median is shown only after at least three recorded eBay sale prices for that book; a gap greater than 50% from a qualifying PangoBooks median is flagged for human review.
 - eBay's generally available Browse API is for active listings, not arbitrary completed sales; sold-history API access is restricted. Therefore the site does not pretend that an active asking price is a verified sale. eBay sold comps need verified manual entry or an approved sold-data provider.
+
+
+## Design refresh (October 2026)
+The collection uses an editorial, cover-first visual system with responsive book cards, persistent light/dark mode (system preference by default), a sticky catalog toolbar on desktop, and a dedicated `auth.html` sign-in route. Cover lookup tries Open Library by ISBN, then Google Books by ISBN and title/author; when no official cover is found, the card retains a designed typographic fallback. The private research workspace stays behind Supabase authentication and Row Level Security.
