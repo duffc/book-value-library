@@ -101,21 +101,31 @@
       if(error)throw Error("Could not save sold comparable for "+book.title+": "+error.message);
       window.__bvlPangoSaleCounts.set(key,savedCount+1);salesAdded++;
     }
+    // Do not price from the API's all-history aggregate or lifetime sales count.
+    // Build the estimate only from individually returned, dated sales in the last 365 days.
+    const cutoff=new Date();cutoff.setDate(cutoff.getDate()-365);
+    const recentSamples=sales.map(sale=>({price:Number(sale.price_usd),date:dateOnly(sale.sold_at),condition:sale.condition||null}))
+      .filter(sale=>Number.isFinite(sale.price)&&sale.price>=0&&sale.date&&new Date(sale.date+"T00:00:00Z")>=cutoff&&new Date(sale.date+"T00:00:00Z")<=new Date())
+      .sort((a,b)=>a.date.localeCompare(b.date));
+    const recentPrices=recentSamples.map(s=>s.price).sort((a,b)=>a-b);
+    const recentMedian=recentPrices.length?(recentPrices.length%2?recentPrices[(recentPrices.length-1)/2]:(recentPrices[recentPrices.length/2-1]+recentPrices[recentPrices.length/2])/2):null;
+    const recentAverage=recentPrices.length?recentPrices.reduce((sum,v)=>sum+v,0)/recentPrices.length:null;
     let valuationUpdated=false;
-    if(count>=10&&Number.isFinite(median)&&median>=0){
-      const method="PangoBooks ISBN sold median (public API)";
-      const note="Exact ISBN match to catalog edition. PangoBooks reported "+count+" historical sales; median "+money(median)+", average "+money(Number.isFinite(avg)?avg:null)+", range "+money(Number.isFinite(min)?min:null)+"–"+money(Number.isFinite(max)?max:null)+". Estimated resale value uses the median sold price, not an asking price. Recent sale samples are stored separately. Source: "+pricingUrl+" Checked "+retrievalDate+". Condition and shipping may differ from this copy.";
+    if(recentSamples.length>=3&&Number.isFinite(recentMedian)&&recentMedian>=0){
+      const method="PangoBooks recent sold-comps median (last 365 days)";
+      const confidence=recentSamples.length>=10?"medium":"low";
+      const note="Exact ISBN match to catalog edition. Estimate calculated from "+recentSamples.length+" individually returned PangoBooks sold transactions dated within the last 365 days; sample median "+money(recentMedian)+", sample average "+money(recentAverage)+", sample range "+money(recentPrices[0])+"–"+money(recentPrices[recentPrices.length-1])+". PangoBooks' all-history aggregate (reported "+count+" sales; median "+money(Number.isFinite(median)?median:null)+") is context only and is NOT the estimate. Condition and shipping may differ from this copy. Source: "+pricingUrl+" Checked "+retrievalDate+".";
       const valuations=ctx.getValuations?ctx.getValuations():[];
       const sameDay=valuations.filter(v=>v.book_id===book.id&&v.method===method&&String(v.as_of_date||"").slice(0,10)===retrievalDate).sort((a,b)=>String(b.created_at||"").localeCompare(String(a.created_at||"")))[0];
       let writeResult;
-      if(sameDay)writeResult=await ctx.client.from("valuations").update({estimated_value:median,confidence,as_of_date:retrievalDate,notes:note}).eq("id",sameDay.id);
-      else writeResult=await ctx.client.from("valuations").insert({book_id:book.id,estimated_value:median,method,confidence,as_of_date:retrievalDate,notes:note});
+      if(sameDay)writeResult=await ctx.client.from("valuations").update({estimated_value:recentMedian,confidence,as_of_date:retrievalDate,notes:note}).eq("id",sameDay.id);
+      else writeResult=await ctx.client.from("valuations").insert({book_id:book.id,estimated_value:recentMedian,method,confidence,as_of_date:retrievalDate,notes:note});
       if(writeResult.error)throw Error("Could not save valuation for "+book.title+": "+writeResult.error.message);
       valuationUpdated=true;
     }
     const detail={isbn:d.isbn||usedIsbn,title:d.title||book.title,source:"PangoBooks public API",source_url:pricingUrl,checked_at:new Date().toISOString(),market:{min_price_usd:market.min_price_usd,max_price_usd:market.max_price_usd,avg_price_usd:market.avg_price_usd,median_price_usd:market.median_price_usd,sales_count:count,retail_price_usd:market.retail_price_usd},recent_sale_samples:salesAdded,valuation_updated:valuationUpdated,confidence};
     const auditError=await addEvent(ctx,book,"pango_isbn_pricing","complete",detail);
-    return {status:"complete",text:book.title+" — median "+money(median)+" · "+count+" historical sales · "+salesAdded+" new sale records"+(valuationUpdated?" · valuation updated":count>=10?" · qualifying valuation retained":" · below 10-sale threshold; no valuation published")+(auditError?" · audit note failed":""),kind:"data"};
+    return {status:"complete",text:book.title+" — median "+money(median)+" · "+count+" historical sales · "+salesAdded+" new sale records"+(valuationUpdated?" · recent-sample valuation updated":recentSamples.length>=3?" · recent sample retained":" · only "+recentSamples.length+" dated recent sales; no valuation published")+(auditError?" · audit note failed":""),kind:"data"};
   }
   async function researchListings(ctx,book,state){
     const isbns=allIsbns(book);if(!isbns.length){await addEvent(ctx,book,"pango_active_offers","complete",{reason:"No ISBN stored on catalog record",checked_at:new Date().toISOString()});return {status:"no_isbn",text:book.title+" — skipped (no ISBN)",kind:"empty"}}
