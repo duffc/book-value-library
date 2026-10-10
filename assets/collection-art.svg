@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" role="img" aria-labelledby="title desc">
+<title id="title">A panorama inspired by the personal library</title><desc id="desc">An original literary landscape of a watchful tower, a swirling cosmos, a mountain castle, a loyal dog, and a glowing futuristic city at twilight.</desc>
+<defs>
+ <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#091b1c"/><stop offset=".5" stop-color="#244647"/><stop offset=".78" stop-color="#d28e55"/><stop offset="1" stop-color="#f0c77c"/></linearGradient>
+ <radialGradient id="nebula"><stop stop-color="#f8dca0" stop-opacity=".95"/><stop offset=".35" stop-color="#b7b8a0" stop-opacity=".4"/><stop offset="1" stop-color="#557a7c" stop-opacity="0"/></radialGradient>
+ <radialGradient id="planet"><stop stop-color="#dbe7cb"/><stop offset=".68" stop-color="#779c9b"/><stop offset="1" stop-color="#35565b"/></radialGradient>
+ <linearGradient id="rock" x2="0" y2="1"><stop stop-color="#334d42"/><stop offset="1" stop-color="#101f1b"/></linearGradient>
+ <linearGradient id="gold" x2="1" y2="1"><stop stop-color="#fff1bd"/><stop offset="1" stop-color="#ba7942"/></linearGradient>
+ <linearGradient id="city" x2="0" y2="1"><stop stop-color="#233d48"/><stop offset="1" stop-color="#0a1b22"/></linearGradient>
+ <linearGradient id="book" x2="1" y2="1"><stop stop-color="#9ab58c"/><stop offset="1" stop-color="#456c62"/></linearGradient>
+ <filter id="glow"><feGaussianBlur stdDeviation="7"/></filter>
+ <filter id="soft"><feGaussianBlur stdDeviation="20"/></filter>
+ <pattern id="windows" width="28" height="32" patternUnits="userSpaceOnUse"><rect x="4" y="5" width="8" height="13" rx="1" fill="#86c5ba" opacity=".7"/><rect x="17" y="5" width="6" height="13" rx="1" fill="#edc888" opacity=".56"/></pattern>
+ <pattern id="stars" width="127" height="91" patternUnits="userSpaceOnUse"><circle cx="8" cy="19" r="1.4" fill="#fff5d6"/><circle cx="67" cy="41" r="1" fill="#fff5d6"/><circle cx="101" cy="14" r="1.6" fill="#fff5d6"/><circle cx="38" cy="75" r="1" fill="#fff5d6"/><path d="M87 63v5m-2.5-2.5h5" stroke="#fff5d6" stroke-width=".8"/></pattern>
+</defs>
+<rect width="1600" height="700" fill="url(#sky)"/>
+<ellipse cx="820" cy="300" rx="680" ry="280" fill="url(#nebula)" opacity=".65"/>
+<ellipse cx="970" cy="150" rx="370" ry="170" fill="#77b1a0" opacity=".12" filter="url(#soft)"/>
+<rect width="1600" height="505" fill="url(#stars)" opacity=".92"/>
+<g fill="none" stroke-linecap="round" opacity=".55"><path d="M410 45C590 110 670 256 817 218S1067 80 1191 145" stroke="#e6d39e" stroke-width="2"/><path d="M360 6C565 107 674 297 853 259S1083 115 1263 186" stroke="#d3b97d" stroke-width="1"/><path d="M474 70C623 166 702 341 866 302S1069 177 1212 219" stroke="#e3d9bc" stroke-width="1"/></g>
+<g transform="translate(640 105)"><circle r="91" fill="#b3cbb9" opacity=".13" filter="url(#glow)"/><circle r="70" fill="url(#planet)"/><path d="M-60-16q44-41 80-6t-4 51q-37 14-44-18t-32-27" fill="#d2d7b6" opacity=".4"/><path d="M-67 21q30-18 48-4t12 31q-29 12-54-27" fill="#42696a" opacity=".65"/><ellipse rx="114" ry="24" fill="none" stroke="#e7d5a6" stroke-width="3" transform="rotate(-24)"/><ellipse rx="115" ry="24" fill="none" stroke="#e7d5a6" stroke-width="1" transform="rotate(-24)"/></g>
+<g transform="translate(1010 116)"><circle r="23" fill="url(#planet)"/><ellipse rx="38" ry="9" fill="none" stroke="#e8c78b" stroke-width="3" transform="rotate(22)"/></g>
+<path d="M0 440L100 374 202 403 295 337 377 409 458 376 556 433 653 367 741 422 822 336 913 405 1004 349 1097 419 1204 326 1285 386 1389 311 1493 369 1600 293V700H0Z" fill="#243f3d" opacity=".67"/>
+<path d="M0 495L123 407 235 443 357 359 475 455 581 424 690 471 811 372 908 448 1012 399 1119 460 1230 355 1346 431 1446 343 1600 405V700H0Z" fill="#59736a" opacity=".78"/>
+<path d="M0 530L140 446 263 482 383 414 490 499 604 452 719 506 830 397 942 481 1045 438 1145 502 1264 391 1360 471 1473 404 1600 449V700H0Z" fill="#304c43"/>
+<path d="M520 388L652 236 705 297 762 211 836 320 895 267 984 391 924 375 860 412 760 375 687 425Z" fill="#e1e8d4" opacity=".82"/>
+<path d="M630 264L652 236 673 267 654 261 644 277Z M742 243L762 211 786 250 766 239 754 257Z M864 302L895 267 919 314 897 302 883 323Z" fill="#fff1d2" opacity=".82"/>
+<!-- the old watchful tower -->
+<g transform="translate(150 208)">
+ <path d="M-96 372L-68 170-47 130-37 35-15 20-8-7 8 20 29 34 36 127 58 168 85 372Z" fill="#142b2c"/>
+ <path d="M-50 162L-39 48-16 35 7 48 21 164 45 372-69 372Z" fill="#203a3a"/>
+ <path d="M-39 60L-14 46 7 60" stroke="#536d63" stroke-width="4" fill="none"/>
+ <rect x="-30" y="93" width="56" height="40" rx="20" fill="#c65c3f" opacity=".32" filter="url(#glow)"/>
+ <path d="M-31 112Q-2 79 28 111Q-2 143-31 112Z" fill="#f09b59"/>
+ <ellipse cx="-2" cy="112" rx="14" ry="18" fill="#f9df9c"/><ellipse cx="-2" cy="112" rx="5" ry="16" fill="#1d2823"/>
+ <path d="M-97 372H87L107 392H-116Z" fill="#152523"/>
+ <path d="M-62 205l18 0m-18 24h18m-18 24h18m34-48h18m-18 24h18m-18 24h18" stroke="#8d9b85" stroke-width="4" opacity=".42"/>
+</g>
+<!-- glowing towers at the far right -->
+<g transform="translate(1200 260)">
+ <path d="M-10 440V102l38-60 29 60v338Z" fill="url(#city)"/><path d="M68 440V21l38-17 34 17v419Z" fill="url(#city)"/><path d="M150 440V141l22-36 23 36v299Z" fill="#152a32"/><path d="M208 440V70l40-43 38 43v370Z" fill="url(#city)"/><path d="M289 440V165l25-33 23 33v275Z" fill="#10252c"/><path d="M-10 112l38-60 29 60v328H-10Z" fill="url(#windows)" opacity=".67"/><path d="M68 25l38-17 34 17v415H68Z" fill="url(#windows)" opacity=".58"/><path d="M208 72l40-43 38 43v368H208Z" fill="url(#windows)" opacity=".73"/>
+ <path d="M27 42L27-1m78 26V-7m143 36V-3" stroke="#b8d9c9" stroke-width="3" opacity=".6"/>
+ <path d="M36 119l2 24m40-77v31m125 109v34m72-82v27" stroke="#7ccec5" stroke-width="4"/>
+</g>
+<!-- distant castle on the ridge -->
+<g transform="translate(830 300)" fill="#223a35" stroke="#a8b59a" stroke-width="1.5" stroke-opacity=".55">
+ <path d="M-142 113V4l22 0V-45l18 10v39h15V-20l21-14 18 14V5h26V-64l22-21 22 21V5h24V-28l19 12V7h17v106Z"/>
+ <path d="M-132 113V31h24v82m38 0V17h29v96m39 0V-37h24v150m32 0V29h23v84m23 0V42h17v71" fill="#162d2a"/>
+ <path d="M-121-45v-18l7-11 7 11v18m58 18v-18l8-12 8 12v18m30-37v-20l10-14 10 14v20m43 0v-20l8-12 8 12v20" fill="#b99a68" stroke="none"/>
+ <g fill="#f1c878" stroke="none"><rect x="-120" y="49" width="7" height="14" rx="3"/><rect x="-66" y="35" width="8" height="14" rx="3"/><rect x="-25" y="9" width="9" height="15" rx="3"/><rect x="15" y="30" width="8" height="15" rx="3"/><rect x="53" y="56" width="7" height="13" rx="3"/></g>
+ <path d="M-160 113H96l24 19H-180Z" fill="#172d28" stroke="none"/>
+</g>
+<!-- a distant flying dragon-like silhouette -->
+<path d="M1000 80q-38-26-59-12l-29-16 18 33-41 24 53-8 27 19 7-20q22 0 37 15l-3-27 42-21-52 8Z" fill="#0c2425" opacity=".73"/>
+<!-- river of light -->
+<path d="M790 456Q790 500 744 540T681 700H1050Q977 629 902 574T856 449Z" fill="#b1b7a0" opacity=".3"/>
+<path d="M820 463Q837 514 801 559T800 700H930Q886 634 883 575T859 455Z" fill="#ffcf83" opacity=".42"/>
+<path d="M835 474Q848 531 828 574T850 700" stroke="#ffe5ac" stroke-width="3" opacity=".55" fill="none"/>
+<!-- foreground trees and rocky ledges -->
+<path d="M0 566L112 522 179 568 275 538 369 588 442 553 538 611 641 572 722 620 808 582 885 636 989 586 1083 634 1180 594 1284 637 1394 584 1507 622 1600 574V700H0Z" fill="url(#rock)"/>
+<g fill="#10221c"><path d="M0 700V530l28 41 23-68 29 71 26-46 24 57 25-32 32 69v78Z"/><path d="M1410 700V536l25 43 19-73 25 64 25-43 27 57 27-84 22 89 20-40v151Z"/><path d="M1320 700V599l28 43 24-50 25 55 21-35 24 50v38Z"/></g>
+<!-- small dog silhouette, a nod to A Dog's Purpose -->
+<g transform="translate(383 508)" fill="#172720" stroke="#172720" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M-48 91Q-67 68-51 39l30-26Q-3-5 25 10l28 12q17 16 11 40l-6 34-15 2-5-35-24-2-6 41-14 0-1-42-21-2-13 36-14 0 4-45Z"/>
+ <path d="M-47 43q-28-8-25-36 14-14 29 3l13 11" fill="none" stroke-width="13"/><path d="M15 13Q4-7 22-18q19-12 36 2l10 17-3 24-18 11-20-8Z"/><path d="M53-8q25-16 33 7-12 24-30 10Z"/><path d="M24-11q-13-17-24-1l8 27 17 5" fill="#172720"/><circle cx="54" cy="1" r="2.5" fill="#e5bb75" stroke="none"/><path d="M-21 25q19 15 39 5" fill="none" stroke="#617765" stroke-width="3"/><path d="M-43 95h23m14 0h23m26-1h16" stroke="#172720" stroke-width="7"/>
+</g>
+<!-- small floating book forms in foreground -->
+<g opacity=".95">
+ <path d="M107 641l95-17 31 14-98 24Z" fill="#d1b17a"/><path d="M107 641v10l28 18v-7Z" fill="#5e4433"/><path d="M135 662l98-24v-7l-98 25Z" fill="#896a45"/>
+ <path d="M1203 641l87-19 24 14-91 24Z" fill="#8aa18a"/><path d="M1203 641v9l20 15v-7Z" fill="#324b40"/><path d="M1223 658l91-22v-7l-91 22Z" fill="#c6d4ad"/>
+</g>
+<rect y="0" width="1600" height="700" fill="none" stroke="#c9d6bb" stroke-opacity=".18" stroke-width="2"/>
+</svg>
