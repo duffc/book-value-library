@@ -37,3 +37,13 @@ The admin workspace now includes **Research the collection**, backed by the publ
 Both passes persist progress in browser local storage after each book. You can pause after the current request and resume in the same browser/profile. Run only one browser tab at once. A full 230-book pass takes roughly 30 minutes at the free rate limit; ISBNs with no exact data remain blank rather than being guessed.
 
 PangoBooks is a separate marketplace source. Its offer prices and sales are **not** Amazon or eBay data. Those fields remain blank unless separately verified. Source: https://pangobooks.com/public-api and https://pangobooks.com/openapi.json.
+
+
+## Valuation policy (October 2026)
+- Collection totals, median, average, and per-book estimated value include only valuations supported by qualifying sold-comparable evidence.
+- Current asking prices are displayed separately and never used alone to calculate a resale estimate.
+- A valuation from the PangoBooks research workflow qualifies only when it is an exact-ISBN sold median/average and at least three historical sales are reported (or at least three individual sold-comparable records are stored).
+- Older proxy, LibraryThing, asking-price, and undocumented estimates remain in valuation history but are excluded from market-value metrics and shown as excluded until supported by qualifying sold evidence.
+- If no qualifying evidence exists, the catalog displays no dollar estimate rather than presenting a false precision.
+- Admins can reset each browser-side scan and re-run the full catalog. Rescans preserve existing database history; sold-price lookups are paced to respect the free public API limit (about 30 minutes for 230 ISBNs per pass).
+- Active offers are evidence for market context only; they do not create a sold-price valuation.
