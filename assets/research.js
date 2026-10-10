@@ -83,20 +83,23 @@
     const retrievalDate=todayLocal();
     const median=Number(market.median_price_usd),avg=Number(market.avg_price_usd),min=Number(market.min_price_usd),max=Number(market.max_price_usd);
     const confidence=count>=50?"high":count>=10?"medium":"low";
-    const knownSales=new Set((ctx.getSales?ctx.getSales():[]).map(existingSaleKey));
-    // Include records inserted earlier in this still-running browser session.
-    if(!window.__bvlPangoSeenSales)window.__bvlPangoSeenSales=knownSales;
-    else for(const k of knownSales)window.__bvlPangoSeenSales.add(k);
-    let salesAdded=0;
+    const existingCounts=new Map();
+    for(const record of (ctx.getSales?ctx.getSales():[])){const k=existingSaleKey(record);existingCounts.set(k,(existingCounts.get(k)||0)+1)}
+    if(!window.__bvlPangoSaleCounts)window.__bvlPangoSaleCounts=existingCounts;
+    else for(const [k,n] of existingCounts)window.__bvlPangoSaleCounts.set(k,Math.max(window.__bvlPangoSaleCounts.get(k)||0,n));
+    let salesAdded=0;const returnedCounts=new Map();
     for(const sale of sales){
       const price=Number(sale.price_usd),soldDate=dateOnly(sale.sold_at),condition=sale.condition||null;
       if(!Number.isFinite(price)||price<0)continue;
       const key=[book.id,soldDate||"",price.toFixed(2),"other",String(condition||"").toLowerCase()].join("|");
-      if(window.__bvlPangoSeenSales.has(key))continue;
+      const occurrence=(returnedCounts.get(key)||0)+1;returnedCounts.set(key,occurrence);
+      const savedCount=window.__bvlPangoSaleCounts.get(key)||0;
+      // Treat identical date/price/condition sales as a multiset so real duplicate transactions are retained, while reruns stay idempotent.
+      if(savedCount>=occurrence)continue;
       const notes="PangoBooks public API recent sale; ISBN "+(d.isbn||usedIsbn)+". Market median "+(Number.isFinite(median)?money(median):"unavailable")+" from "+count+" reported sales. Source: "+pricingUrl;
       const {error}=await ctx.client.from("sales_comparables").insert({book_id:book.id,marketplace:"other",sold_date:soldDate,sold_price:price,currency:"USD",listing_url:pricingUrl,condition,confidence,notes});
       if(error)throw Error("Could not save sold comparable for "+book.title+": "+error.message);
-      window.__bvlPangoSeenSales.add(key);salesAdded++;
+      window.__bvlPangoSaleCounts.set(key,savedCount+1);salesAdded++;
     }
     let valuationUpdated=false;
     if(count>=3&&Number.isFinite(median)&&median>=0){
