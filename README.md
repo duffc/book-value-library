@@ -49,6 +49,12 @@ PangoBooks is a separate marketplace source. Its offer prices and sales are **no
 - Active offers are evidence for market context only; they do not create a sold-price valuation.
 
 
+## Recent-sale valuation correction (October 2026)
+
+The pricing workflow must not treat PangoBooks' lifetime sales count or all-history aggregate median as if it were a recent transaction sample. New valuations use the median of individually returned, dated PangoBooks sale records within the last 365 days, and require at least three such records. The note on each valuation records the sample size, median, average, range, source URL, and date checked. Three to nine recent sales produce low confidence; ten or more produce medium confidence. This is still a single-market estimate and is not represented as cross-market verified.
+
+The scan progress keys were versioned so the revised pricing pass starts with a clean browser-side progress state. A full pass takes about 30 minutes at the free rate limit. Existing historical valuations are retained, but only new valuations using the recent-sample method qualify for the current dashboard totals. A book without three dated recent sales remains unvalued rather than receiving an estimate from a lifetime aggregate.
+
 ## Stricter valuation and cross-market checks (October 2026)
 - PangoBooks-derived catalog valuations require an exact-ISBN median and at least 10 reported historical sales. The research workflow still stores individual recent sales when fewer than 10 historical sales are reported, but does not publish a valuation from that small sample.
 - Existing PangoBooks estimates with fewer than 10 reported historical sales are excluded from dashboard market-value totals even though their history is preserved.
