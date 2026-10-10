@@ -63,14 +63,14 @@
         <div class="research-progress-meta"><span id="pangoPricingStatus">0 books checked</span><span class="research-source">Pricing + recent sales</span></div>
         <progress id="pangoPricingProgress" max="230" value="0"></progress>
         <ul id="pangoPricingLog" class="research-log" aria-live="polite"><li class="research-log-empty">Results and source notes will appear here as the scan runs.</li></ul>
-        <button type="button" id="runPangoPricing">Run / resume sold-price research</button><button type="button" class="outline research-retry" id="retryPangoPricingMisses">Recheck books with no sold-price data</button>
+        <button type="button" id="runPangoPricing">Run / resume sold-price research</button><button type="button" class="outline research-retry" id="retryPangoPricingMisses">Recheck books with no sold-price data</button><button type="button" class="outline research-retry" id="fullPangoPricingScan">Reset and rescan all 230 books</button>
       </article>
       <article class="research-job">
         <div class="research-job-top"><span class="research-job-number">02</span><div><h3>Current PangoBooks offers</h3><p>Search by ISBN, then record the lowest price and number of exact-ISBN offers returned on the first page (up to 10). This is an observed sample, not a claim about total marketplace inventory.</p></div></div>
         <div class="research-progress-meta"><span id="pangoListingsStatus">0 books checked</span><span class="research-source">Active offer lookup</span></div>
         <progress id="pangoListingsProgress" max="230" value="0"></progress>
         <ul id="pangoListingsLog" class="research-log" aria-live="polite"><li class="research-log-empty">Listing observations and source notes will appear here.</li></ul>
-        <button type="button" id="runPangoListings">Run / resume active-offer scan</button><button type="button" class="outline research-retry" id="retryPangoListingsMisses">Recheck books with no active offers</button>
+        <button type="button" id="runPangoListings">Run / resume active-offer scan</button><button type="button" class="outline research-retry" id="retryPangoListingsMisses">Recheck books with no active offers</button><button type="button" class="outline research-retry" id="fullPangoListingsScan">Reset and rescan all 230 books</button>
       </article>
     </div>
     <div class="research-actions"><button type="button" id="pausePangoResearch" class="outline" disabled>Pause after current lookup</button><span>Amazon/eBay fields remain blank unless separately verified. PangoBooks data is stored as its own source.</span></div>
@@ -81,8 +81,8 @@
 <script src="assets/theme.js?v=20261010-1"></script>
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="assets/app.js?v=20261010-11"></script>
-<script src="assets/research.js?v=20261010-3"></script>
+<script src="assets/app.js?v=20261010-12"></script>
+<script src="assets/research.js?v=20261010-4"></script>
 <script src="assets/import.js?v=20261010-9"></script>
 </body>
 </html>
