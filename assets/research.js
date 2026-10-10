@@ -102,7 +102,7 @@
       window.__bvlPangoSaleCounts.set(key,savedCount+1);salesAdded++;
     }
     let valuationUpdated=false;
-    if(count>=3&&Number.isFinite(median)&&median>=0){
+    if(count>=10&&Number.isFinite(median)&&median>=0){
       const method="PangoBooks ISBN sold median (public API)";
       const note="Exact ISBN match to catalog edition. PangoBooks reported "+count+" historical sales; median "+money(median)+", average "+money(Number.isFinite(avg)?avg:null)+", range "+money(Number.isFinite(min)?min:null)+"–"+money(Number.isFinite(max)?max:null)+". Estimated resale value uses the median sold price, not an asking price. Recent sale samples are stored separately. Source: "+pricingUrl+" Checked "+retrievalDate+". Condition and shipping may differ from this copy.";
       const valuations=ctx.getValuations?ctx.getValuations():[];
@@ -115,7 +115,7 @@
     }
     const detail={isbn:d.isbn||usedIsbn,title:d.title||book.title,source:"PangoBooks public API",source_url:pricingUrl,checked_at:new Date().toISOString(),market:{min_price_usd:market.min_price_usd,max_price_usd:market.max_price_usd,avg_price_usd:market.avg_price_usd,median_price_usd:market.median_price_usd,sales_count:count,retail_price_usd:market.retail_price_usd},recent_sale_samples:salesAdded,valuation_updated:valuationUpdated,confidence};
     const auditError=await addEvent(ctx,book,"pango_isbn_pricing","complete",detail);
-    return {status:"complete",text:book.title+" — median "+money(median)+" · "+count+" sold comps · "+salesAdded+" new sale records"+(valuationUpdated?" · valuation updated":" · estimate retained")+(auditError?" · audit note failed":""),kind:"data"};
+    return {status:"complete",text:book.title+" — median "+money(median)+" · "+count+" historical sales · "+salesAdded+" new sale records"+(valuationUpdated?" · valuation updated":count>=10?" · qualifying valuation retained":" · below 10-sale threshold; no valuation published")+(auditError?" · audit note failed":""),kind:"data"};
   }
   async function researchListings(ctx,book,state){
     const isbns=allIsbns(book);if(!isbns.length){await addEvent(ctx,book,"pango_active_offers","complete",{reason:"No ISBN stored on catalog record",checked_at:new Date().toISOString()});return {status:"no_isbn",text:book.title+" — skipped (no ISBN)",kind:"empty"}}
