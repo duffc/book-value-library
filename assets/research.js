@@ -187,8 +187,11 @@
       pauseRequested=false;
     }
   }
+  function recheckMissing(kind){if(running)return;const state=readState(kind);let count=0;for(const [id,item] of Object.entries(state.processed||{})){if(item&&["no_data","error"].includes(item.status)){delete state.processed[id];count++}}writeState(kind,state);renderProgress(kind);setGlobalNote(count?("Queued "+count+" books for recheck. Successful lookups remain saved; the next run will retry only missing/error results."):"No missing/error results to recheck yet.");}
   $("runPangoPricing").addEventListener("click",()=>run("pricing"));
   $("runPangoListings").addEventListener("click",()=>run("listings"));
+  $("retryPangoPricingMisses").addEventListener("click",()=>recheckMissing("pricing"));
+  $("retryPangoListingsMisses").addEventListener("click",()=>recheckMissing("listings"));
   $("pausePangoResearch").addEventListener("click",()=>{if(!running)return;pauseRequested=true;setGlobalNote("Pause requested. The current lookup will finish, then progress is saved.");renderAll("Pause requested…")});
   window.addEventListener("beforeunload",e=>{if(running){e.preventDefault();e.returnValue=""}});
   function init(){renderProgress("pricing");renderProgress("listings");}
