@@ -68,3 +68,7 @@
 
 .research-job button.research-retry{margin-top:0;background:transparent;color:var(--green);border:1px solid var(--line);font-size:.75rem;padding:10px 14px}.research-job button.research-retry:hover:not(:disabled){background:var(--soft)}
 :root[data-theme="dark"] .research-job button.research-retry{background:transparent;color:#c3dec3;border-color:#3b5140}:root[data-theme="dark"] .research-job button.research-retry:hover:not(:disabled){background:#223629}
+
+/* Valuation coverage caveat */
+.valuation-caveat{grid-column:1/-1;margin:0 0 2px;padding:10px 13px;border:1px solid #c9d7be;border-radius:10px;background:#edf2e7;color:#52664f;font-size:.75rem;line-height:1.45}
+:root[data-theme="dark"] .valuation-caveat{background:#1a2a20;border-color:#304638;color:#b9cdbb}
