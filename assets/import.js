@@ -48,7 +48,7 @@
         return {source:r,book,market,observed:date(get(r,"observed_at","observed_date"),r.rowNumber),
           price:num(get(r,"lowest_used_price","ebay_lowest","amazon_lowest","lowest_price","asking_price"),"asking price",r.rowNumber),
           count:num(get(r,"active_listing_count","listing_count"),"listing count",r.rowNumber),
-          estimate:num(get(r,"estimated_value","estimated_current_value"),"estimated value",r.rowNumber),
+          estimate:num(get(r,"estimated_value","estimated_current_value"),"estimated value",r.rowNumber),estimateMethod:get(r,"estimated_value_method"),estimateConfidence:(get(r,"estimated_value_confidence")||"medium").toLowerCase(),estimateAsOf:date(get(r,"estimated_value_as_of"),r.rowNumber),
           soldDate:date(get(r,"last_sold_date","sold_date"),r.rowNumber),
           soldPrice:num(get(r,"last_sold_price","sold_price"),"sold price",r.rowNumber),
           url:get(r,"search_url","source_url","url"),notes:get(r,"notes","research_notes"),edition:get(r,"edition_match","edition"),
@@ -80,7 +80,7 @@
         if(error)errors.push("row "+r.source.rowNumber+": "+error.message);else snapshots++;
       }
       if(r.estimate!==null){
-        const {error}=await ctx.client.from("valuations").insert({book_id,estimated_value:r.estimate,method:"bulk CSV import",confidence:"medium",as_of_date:r.observed||new Date().toISOString().slice(0,10),notes:r.notes||"Imported from research CSV"});
+        const {error}=await ctx.client.from("valuations").insert({book_id,estimated_value:r.estimate,method:r.estimateMethod||"bulk CSV import",confidence:["low","medium","high"].includes(r.estimateConfidence)?r.estimateConfidence:"medium",as_of_date:r.estimateAsOf||r.observed||new Date().toISOString().slice(0,10),notes:r.notes||"Imported from research CSV"});
         if(error)errors.push("row "+r.source.rowNumber+" valuation: "+error.message);else valuations++;
       }
       if(r.soldDate||r.soldPrice!==null){
