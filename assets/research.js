@@ -5,8 +5,8 @@
   const GAP_MS = 7500;
   const RATE_KEY = "bvl-pango-last-request-at";
   const STATE_KEYS = {
-    pricing: "bvl-pango-pricing-progress-v1",
-    listings: "bvl-pango-listings-progress-v1"
+    pricing: "bvl-pango-pricing-progress-v2",
+    listings: "bvl-pango-listings-progress-v2"
   };
   let running = false, pauseRequested = false, currentKind = null;
   const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
