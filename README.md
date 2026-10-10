@@ -26,3 +26,14 @@ Marketplace prices and listing counts are time-stamped snapshots. Completed sale
 
 ## Limitations
 The current frontend has basic admin sign-in and research-entry forms. It does not automatically scrape marketplaces; price data must be entered from verified sources. Do not assume a blank count means no listings.
+
+## Free market research (October 2026)
+
+The admin workspace now includes **Research the collection**, backed by the public PangoBooks research API. It needs no paid API key and is limited to 10 anonymous requests per minute. It is split into two resumable passes:
+
+1. **Completed-sale research** requests exact-ISBN market comps, records returned recent sale comparables with dates/prices/conditions, and appends a dated valuation based on the reported median only when the API reports at least 3 historical sales. Confidence is scaled by sample size. Existing sale rows are deduplicated on book, date, price, marketplace, and condition.
+2. **Current PangoBooks offers** requests active book listings by ISBN and stores the lowest offer plus the number of exact-ISBN offers returned on the first API page (up to 10). This count is the number observed in that API response, not necessarily total inventory. These records are tagged `pango_active_isbn_search`.
+
+Both passes persist progress in browser local storage after each book. You can pause after the current request and resume in the same browser/profile. Run only one browser tab at once. A full 230-book pass takes roughly 30 minutes at the free rate limit; ISBNs with no exact data remain blank rather than being guessed.
+
+PangoBooks is a separate marketplace source. Its offer prices and sales are **not** Amazon or eBay data. Those fields remain blank unless separately verified. Source: https://pangobooks.com/public-api and https://pangobooks.com/openapi.json.
