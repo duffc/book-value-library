@@ -1,0 +1,39 @@
+name: Supabase activity check
+
+on:
+  schedule:
+    # Three lightweight database reads per day (UTC).
+    - cron: "17 */8 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: supabase-activity-check
+  cancel-in-progress: false
+
+jobs:
+  check-database:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Query Supabase Books table
+        env:
+          SUPABASE_URL: https://tcogkttgvjzmujguvnok.supabase.co
+          SUPABASE_PUBLISHABLE_KEY: sb_publishable_BP83X_mN2ESqXyP1Dug12w_jMcRXyUk
+        run: |
+          set -eu
+          status="$(curl --silent --show-error --output /tmp/supabase-response.json --write-out '%{http_code}' \
+            --get "$SUPABASE_URL/rest/v1/books" \
+            --data-urlencode 'select=id' \
+            --data-urlencode 'limit=1' \
+            --header "apikey: $SUPABASE_PUBLISHABLE_KEY" \
+            --header "Authorization: Bearer $SUPABASE_PUBLISHABLE_KEY" \
+            --header 'Accept: application/json')"
+          if [ "$status" -lt 200 ] || [ "$status" -ge 300 ]; then
+            echo "Supabase database check failed with HTTP $status."
+            cat /tmp/supabase-response.json
+            exit 1
+          fi
+          echo "Supabase Books query succeeded (HTTP $status)."
