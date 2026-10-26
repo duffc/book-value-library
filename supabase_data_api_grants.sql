@@ -15,6 +15,9 @@ grant select on table
   public.valuations
 to anon, authenticated;
 
+grant select, insert, update, delete on table
+  public.research_events;
+
 grant insert, update, delete on table
   public.books,
   public.marketplace_snapshots,
